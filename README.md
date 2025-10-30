@@ -1,17 +1,39 @@
-# [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
+# youtube-search-python
 
-##### Search for YouTube videos, channels & playlists. Get video & playlist information using link. Get search suggestions. WITHOUT YouTube Data API v3.
-
-## There are no active project maintainers since 23rd June 2022. Details: [Here](https://github.com/alexmercerind/youtube-search-python/issues/189)
+#### 🔎 Search YouTube videos, channels, and playlists — without using the YouTube Data API v3.
 
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
+[![Install via GitHub](https://img.shields.io/badge/install-gitHub-blue?style=for-the-badge&logo=github)](https://github.com/CertifiedDevloper/youtube-search-python)
 
-## Installing
+> ⚠️ **Note:** The original project by [Hitesh Kumar Saini](https://github.com/alexmercerind) has not been maintained since **June 23, 2022**.  
+> See: [Issue #189](https://github.com/alexmercerind/youtube-search-python/issues/189)
+
+---
+
+## 🛠️ About This Fork
+
+This is an **actively maintained fork** of [youtube-search-python](https://github.com/alexmercerind/youtube-search-python) by [CertifiedDevloper](https://github.com/CertifiedDevloper), with fixes for modern environments and continued community use.
+
+### ✅ What’s Changed
+- 🧹 Removed deprecated `proxies=` usage from `httpx.AsyncClient`
+- ⚙️ Now fully compatible with `httpx >= 0.28.0`
+- 📝 Version bumped to `1.6.6.post1` with attribution and documentation added
+
+📌 The goal of this fork is to keep the project usable and maintained in modern Python environments while honoring and preserving the excellent original work.
+
+**Credits:**  
+- 👨‍💻 Original author: [Hitesh Kumar Saini](https://github.com/alexmercerind)  
+- 🔧 Fork maintainer: [CertifiedDevloper](https://github.com/CertifiedDevloper)
+
+---
+
+## 📦 Installing (Forked & Maintained Version)
 
 ```bash
-pip3 install youtube-search-python
+pip install git+https://github.com/CertifiedDevloper/youtube-search-python
 ```
+---
 
 ## Sync
 

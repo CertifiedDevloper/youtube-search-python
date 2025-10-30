@@ -22,26 +22,20 @@ class RequestCore:
             headers={"User-Agent": userAgent},
             json=self.data,
             timeout=self.timeout,
-            # proxies=self.proxy  # <--- removed: httpx 0.28+ removed this param
+            proxies=self.proxy
         )
 
     async def asyncPostRequest(self) -> httpx.Response:
-        # async with httpx.AsyncClient(proxies=self.proxy) as client:  # removed
+        # FIXED: removed `proxies=self.proxy` (no longer supported in httpx 0.28+)
         async with httpx.AsyncClient() as client:
             r = await client.post(self.url, headers={"User-Agent": userAgent}, json=self.data, timeout=self.timeout)
             return r
 
     def syncGetRequest(self) -> httpx.Response:
-        return httpx.get(
-            self.url,
-            headers={"User-Agent": userAgent},
-            timeout=self.timeout,
-            cookies={'CONSENT': 'YES+1'},
-            # proxies=self.proxy  # <--- removed
-        )
+        return httpx.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'}, proxies=self.proxy)
 
     async def asyncGetRequest(self) -> httpx.Response:
-        # async with httpx.AsyncClient(proxies=self.proxy) as client:  # removed
+        # FIXED: removed `proxies=self.proxy` (no longer supported in httpx 0.28+)
         async with httpx.AsyncClient() as client:
             r = await client.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'})
             return r
