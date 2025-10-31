@@ -28,8 +28,14 @@ class ComponentHandler:
                 'duration':                    self._getValue(video, ['lengthText', 'accessibility', 'accessibilityData', 'label']),
             },
         }
-        component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
-        component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
+        # Safely construct links only if IDs are present
+        vid = component.get('id')
+        component['link'] = ('https://www.youtube.com/watch?v=' + vid) if isinstance(vid, str) and vid else None
+
+        cid = component.get('channel', {}).get('id')
+        if 'channel' in component:
+            component['channel']['link'] = ('https://www.youtube.com/channel/' + cid) if isinstance(cid, str) and cid else None
+
         component['shelfTitle'] = shelfTitle
         return component
 
@@ -44,7 +50,9 @@ class ComponentHandler:
             'descriptionSnippet':              self._getValue(channel, ['descriptionSnippet', 'runs']),
             'subscribers':                     self._getValue(channel, ['subscriberCountText', 'simpleText']),
         }
-        component['link'] = 'https://www.youtube.com/channel/' + component['id']
+        # Guard channel link construction
+        cid = component.get('id')
+        component['link'] = ('https://www.youtube.com/channel/' + cid) if isinstance(cid, str) and cid else None
         return component
 
     def _getPlaylistComponent(self, element: dict) -> dict:
@@ -60,8 +68,13 @@ class ComponentHandler:
             },
             'thumbnails':                     self._getValue(playlist, ['thumbnailRenderer', 'playlistVideoThumbnailRenderer', 'thumbnail', 'thumbnails']),
         }
-        component['link'] = 'https://www.youtube.com/playlist?list=' + component['id']
-        component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
+        # Guard playlist & channel link construction
+        pid = component.get('id')
+        component['link'] = ('https://www.youtube.com/playlist?list=' + pid) if isinstance(pid, str) and pid else None
+
+        cid = component.get('channel', {}).get('id')
+        if 'channel' in component:
+            component['channel']['link'] = ('https://www.youtube.com/channel/' + cid) if isinstance(cid, str) and cid else None
         return component
     
     def _getVideoFromChannelSearch(self, elements: list) -> list:
@@ -169,13 +182,13 @@ class ComponentHandler:
         value = source
         for key in path:
             if type(key) is str:
-                if key in value.keys():
+                if isinstance(value, dict) and key in value.keys():
                     value = value[key]
                 else:
                     value = None
                     break
             elif type(key) is int:
-                if len(value) != 0:
+                if isinstance(value, list) and len(value) != 0 and len(value) > key:
                     value = value[key]
                 else:
                     value = None
